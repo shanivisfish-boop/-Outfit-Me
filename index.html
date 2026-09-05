@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outfit Me 🎀</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#fff5fa,#fce5f0);
+  color:#4d3442;
+}
+
+header{
+  text-align:center;
+  padding:28px 15px 18px;
+}
+
+h1{
+  margin:0;
+  color:#d95791;
+  font-size:36px;
+}
+
+.subtitle{
+  margin-top:7px;
+  color:#987184;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:rgba(255,255,255,.95);
+  border-radius:26px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 8px 28px rgba(170,80,125,.12);
+}
+
+h2{
+  color:#c94f85;
+  margin-top:0;
+}
+
+.categories,
+.colors,
+.occasions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.choice{
+  border:0;
+  padding:12px 6px;
+  border-radius:16px;
+  background:#fff0f6;
+  color:#70465a;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.choice.selected{
+  background:#e56d9f;
+  color:white;
+}
+
+input[type=file]{
+  width:100%;
+  margin:16px 0;
+}
+
+.main-button{
+  width:100%;
+  border:0;
+  padding:16px;
+  border-radius:19px;
+  background:#df6298;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.main-button:active{
+  transform:scale(.98);
+}
+
+.closet{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.item{
+  position:relative;
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.item img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  display:block;
+}
+
+.delete{
+  position:absolute;
+  top:6px;
+  left:6px;
+  width:31px;
+  height:31px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.92);
+  cursor:pointer;
+}
+
+.badge{
+  padding:7px 10px;
+  font-size:12px;
+  text-align:center;
+  background:#fff4f8;
+}
+
+.outfit{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+
+.match{
+  margin-top:15px;
+  padding:14px;
+  border-radius:17px;
+  text-align:center;
+  font-weight:bold;
+  background:#f8e8f0;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#987486;
+  grid-column:1/-1;
+}
+
+.small{
+  color:#987486;
+  font-size:13px;
+  margin-top:8px;
+  text-align:center;
+}
+
+.savedBox{
+  background:#fff7fa;
+  border-radius:20px;
+  padding:12px;
+  margin-top:12px;
+}
+
+@media(max-width:650px){
+  .categories,
+  .colors,
+  .occasions{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .closet{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Outfit Me 🎀</h1>
+  <div class="subtitle">הארון הדיגיטלי שלי 👗✨</div>
+</header>
+
+<div class="container">
+
+<!-- הוספת פריט -->
+<div class="card">
+
+<h2>➕ הוסיפי בגד לארון</h2>
+
+<p><b>מה סוג הפריט?</b></p>
+
+<div class="categories">
+
+<button class="choice selected" data-category="top">👚 חולצה</button>
+<button class="choice" data-category="bottom">👖 מכנס</button>
+<button class="choice" data-category="skirt">🩷 חצאית</button>
+<button class="choice" data-category="dress">👗 שמלה</button>
+<button class="choice" data-category="outer">🧥 עליונית</button>
+<button class="choice" data-category="shoes">👟 נעליים</button>
+<button class="choice" data-category="bag">👜 תיק</button>
+<button class="choice" data-category="accessory">🎀 אקססורי</button>
+
+</div>
+
+<p><b>איזה צבע?</b></p>
+
+<div class="colors">
+
+<button class="choice selected" data-color="white">🤍 לבן</button>
+<button class="choice" data-color="black">🖤 שחור</button>
+<button class="choice" data-color="gray">🩶 אפור</button>
+<button class="choice" data-color="cream">🤍 שמנת</button>
+<button class="choice" data-color="pink">🩷 ורוד</button>
+<button class="choice" data-color="red">❤️ אדום</button>
+<button class="choice" data-color="orange">🧡 כתום</button>
+<button class="choice" data-color="yellow">💛 צהוב</button>
+<button class="choice" data-color="green">💚 ירוק</button>
+<button class="choice" data-color="lightblue">🩵 תכלת</button>
+<button class="choice" data-color="blue">💙 כחול</button>
+<button class="choice" data-color="purple">💜 סגול</button>
+<button class="choice" data-color="brown">🤎 חום</button>
+<button class="choice" data-color="denim">👖 ג'ינס</button>
+
+</div>
+
+<input type="file" id="photoInput" accept="image/*">
+
+<button class="main-button" id="addButton">
+💗 הוסיפי לארון
+</button>
+
+<div class="small">
+אין צורך בשם — רק תמונה, סוג וצבע 🎀
+</div>
+
+</div>
+
+
+<!-- הארון -->
+<div class="card">
+
+<h2>🧺 הארון שלי</h2>
+
+<div id="closet" class="closet"></div>
+
+</div>
+
+
+<!-- יצירת אאוטפיט -->
+<div class="card">
+
+<h2>✨ הרכיבי לי אאוטפיט</h2>
+
+<p><b>לאן את יוצאת?</b></p>
+
+<div class="occasions">
+
+<button class="choice" data-occasion>🏫 בית ספר</button>
+<button class="choice" data-occasion>👯‍♀️ יציאה עם חברות</button>
+<button class="choice" data-occasion>👨‍👩‍👧‍👦 יציאה עם המשפחה</button>
+<button class="choice" data-occasion>🎉 חג אצל חברים</button>
+<button class="choice" data-occasion>🏠 חג אצל המשפחה</button>
+<button class="choice" data-occasion>🍽️ ארוחת שישי</button>
+<button class="choice" data-occasion>✨ יום רגיל</button>
+
+</div>
+
+<br>
+
+<button class="main-button" id="generateButton">
+🎀 תמצאי לי אאוטפיט
+</button>
+
+<div id="match"></div>
+
+<div id="outfit" class="outfit"></div>
+
+<br>
+
+<button class="main-button" id="againButton" style="display:none">
+🔄 עוד אאוטפיט
+</button>
+
+<br>
+
+<button class="main-button" id="saveButton" style="display:none">
+❤️ שמרי את האאוטפיט
+</button>
+
+</div>
+
+
+<!-- אאוטפיטים שמורים -->
+<div class="card">
+
+<h2>❤️ האאוטפיטים שלי</h2>
+
+<div id="savedOutfits"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let clothes = [];
+let savedOutfits = [];
+
+let selectedCategory = "top";
+let selectedColor = "white";
+let selectedOccasion = "";
+let currentOutfit = [];
+
+
+/* טעינת הארון */
+
+function loadCloset(){
+
+  try{
+    clothes = JSON.parse(
+      localStorage.getItem("outfitMeCloset")
+    ) || [];
+  }catch(e){
+    clothes=[];
+  }
+
+}
+
+
+/* שמירת הארון */
+
+function saveCloset(){
+
+  localStorage.setItem(
+    "outfitMeCloset",
+    JSON.stringify(clothes)
+  );
+
+}
+
+
+/* טעינת אאוטפיטים */
+
+function loadSaved(){
+
+  try{
+    savedOutfits = JSON.parse(
+      localStorage.getItem("outfitMeSaved")
+    ) || [];
+  }catch(e){
+    savedOutfits=[];
+  }
+
+}
+
+
+/* בחירת קטגוריה */
+
+document.querySelectorAll("[data-category]").forEach(button=>{
+
+  button.addEventListener("click",function(){
+
+    document.querySelectorAll("[data-category]")
+      .forEach(b=>b.classList.remove("selected"));
+
+    this.classList.add("selected");
+
+    selectedCategory=this.dataset.category;
+
+  });
+
+});
+
+
+/* בחירת צבע */
+
+document.querySelectorAll("[data-color]").forEach(button=>{
+
+  button.addEventListener("click",function(){
+
+    document.querySelectorAll("[data-color]")
+      .forEach(b=>b.classList.remove("selected"));
+
+    this.classList.add("selected");
+
+    selectedColor=this.dataset.color;
+
+  });
+
+});
+
+
+/* הוספת פריט */
+
+document.getElementById("addButton")
+.addEventListener("click",function(){
+
+  const input=document.getElementById("photoInput");
+
+  if(!input.files || !input.files[0]){
+
+    alert("תבחרי תמונה של הבגד 💗");
+    return;
+
+  }
+
+
+  const file=input.files[0];
+
+  const reader=new FileReader();
+
+
+  reader.onload=function(event){
+
+    const newItem={
+
+      id:Date.now()+"_"+Math.random(),
+
+      category:selectedCategory,
+
+      color:selectedColor,
+
+      image:event.target.result
+
+    };
+
+
+    clothes.push(newItem);
+
+    saveCloset();
+
+    /* חשוב — מציג מיד את הפריט החדש */
+
+    renderCloset();
+
+
+    input.value="";
+
+
+    alert("הפריט נוסף לארון! 🧺💗");
+
+  };
+
+
+  reader.readAsDataURL(file);
+
+});
+
+
+/* הצגת הארון */
+
+function renderCloset(){
+
+  const closet=document.getElementById("closet");
+
+  closet.innerHTML="";
+
+
+  if(clothes.length===0){
+
+    closet.innerHTML=`
+
+      <div class="empty">
+
+        🥹🎀<br>
+        הארון שלך עדיין ריק<br>
+        תוסיפי את הבגד הראשון שלך!
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  clothes.forEach(item=>{
+
+    const div=document.createElement("div");
+
+    div.className="item";
+
+
+    const img=document.createElement("img");
+
+    img.src=item.image;
+
+    img.alt="בגד";
+
+
+    const badge=document.createElement("div");
+
+    badge.className="badge";
+
+    badge.textContent=colorName(item.color);
+
+
+    const deleteButton=document.createElement("button");
+
+    deleteButton.className="delete";
+
+    deleteButton.textContent="🗑️";
+
+
+    deleteButton.addEventListener("click",function(){
+
+      deleteItem(item.id);
+
+    });
+
+
+    div.appendChild(img);
+
+    div.appendChild(badge);
+
+    div.appendChild(deleteButton);
+
+    closet.appendChild(div);
+
+  });
+
+}
+
+
+/* מחיקת פריט */
+
+function deleteItem(id){
+
+  clothes=clothes.filter(item=>item.id!==id);
+
+  saveCloset();
+
+  renderCloset();
+
+}
+
+
+/* בחירת אירוע */
+
+document.querySelectorAll("[data-occasion]")
+.forEach(button=>{
+
+  button.addEventListener("click",function(){
+
+    document.querySelectorAll("[data-occasion]")
+      .forEach(b=>b.classList.remove("selected"));
+
+    this.classList.add("selected");
+
+    selectedOccasion=this.textContent;
+
+  });
+
+});
+
+
+/* התאמת צבעים */
+
+const compatible={
+
+  white:[
+    "black","gray","cream","pink","red","orange",
+    "yellow","green","lightblue","blue","purple",
+    "brown","denim"
+  ],
+
+  black:[
+    "white","gray","cream","pink","red","orange",
+    "yellow","green","lightblue","blue","purple",
+    "brown","denim"
+  ],
+
+  gray:[
+    "white","black","cream","pink","red",
+    "lightblue","blue","purple","denim"
+  ],
+
+  cream:[
+    "white","black","brown","pink","green",
+    "lightblue","blue","denim"
+  ],
+
+  pink:[
+    "white","black","gray","cream","brown",
+    "denim","purple"
+  ],
+
+  red:[
+    "white","black","gray","cream","denim","brown"
+  ],
+
+  orange:[
+    "white","black","cream","brown","denim","blue"
+  ],
+
+  yellow:[
+    "white","black","gray","cream","brown",
+    "blue","denim"
+  ],
+
+  green:[
+    "white","black","cream","brown","denim","yellow"
+  ],
+
+  lightblue:[
+    "white","gray","cream","pink","brown",
+    "denim","black"
+  ],
+
+  blue:[
+    "white","black","gray","cream","orange",
+    "brown","yellow","denim"
+  ],
+
+  purple:[
+    "white","black","gray","cream","pink","denim"
+  ],
+
+  brown:[
+    "white","cream","pink","orange","green",
+    "lightblue","blue","denim"
+  ],
+
+  denim:[
+    "white","black","gray","cream","pink",
+    "red","orange","yellow","green","lightblue",
+    "blue","purple","brown"
+  ]
+
+};
+
+
+function colorScore(a,b){
+
+  if(a===b) return 7;
+
+  if(
+    compatible[a] &&
+    compatible[a].includes(b)
+  ){
+    return 10;
+  }
+
+  return 0;
+
+}
+
+
+/* בחירת פריט שמתאים לצבעים */
+
+function bestItem(category,colors){
+
+  const options=clothes.filter(
+    item=>item.category===category
+  );
+
+
+  if(options.length===0){
+    return null;
+  }
+
+
+  let scored=options.map(item=>{
+
+    let score=0;
+
+    colors.forEach(color=>{
+
+      score+=colorScore(item.color,color);
+
+    });
+
+
+    return {
+      item:item,
+      score:score
+    };
+
+  });
+
+
+  scored.sort((a,b)=>b.score-a.score);
+
+
+  const highest=scored[0].score;
+
+
+  const best=scored.filter(
+    x=>x.score===highest
+  );
+
+
+  return best[
+    Math.floor(Math.random()*best.length)
+  ].item;
+
+}
+
+
+/* יצירת אאוטפיט */
+
+document.getElementById("generateButton")
+.addEventListener("click",generateOutfit);
+
+
+document.getElementById("againButton")
+.addEventListener("click",generateOutfit);
+
+
+function generateOutfit(){
+
+  if(!selectedOccasion){
+
+    alert("קודם תבחרי לאן את יוצאת 🎀");
+    return;
+
+  }
+
+
+  if(clothes.length===0){
+
+    alert("קודם תוסיפי בגדים לארון 👗");
+    return;
+
+  }
+
+
+  let outfit=[];
+  let colors=[];
+
+
+  const dresses=clothes.filter(
+    item=>item.category==="dress"
+  );
+
+
+  const useDress=
+    dresses.length>0 &&
+    Math.random()>0.55;
+
+
+  if(useDress){
+
+    const dress=
+      dresses[
+        Math.floor(Math.random()*dresses.length)
+      ];
+
+    outfit.push(dress);
+    colors.push(dress.color);
+
+  }else{
+
+    const top=bestItem("top",colors);
+
+    if(top){
+
+      outfit.push(top);
+      colors.push(top.color);
+
+    }
+
+
+    const bottom=bestItem("bottom",colors);
+
+    const skirt=bestItem("skirt",colors);
+
+
+    let lower=null;
+
+
+    if(bottom && skirt){
+
+      lower=Math.random()>0.5
+        ? bottom
+        : skirt;
+
+    }else{
+
+      lower=bottom || skirt;
+
+    }
+
+
+    if(lower){
+
+      outfit.push(lower);
+      colors.push(lower.color);
+
+    }
+
+  }
+
+
+  const outer=bestItem("outer",colors);
+
+  if(
+    outer &&
+    Math.random()>0.5
+  ){
+
+    outfit.push(outer);
+    colors.push(outer.color);
+
+  }
+
+
+  const shoes=bestItem("shoes",colors);
+
+  if(shoes){
+
+    outfit.push(shoes);
+    colors.push(shoes.color);
+
+  }
+
+
+  const bag=bestItem("bag",colors);
+
+  if(
+    bag &&
+    Math.random()>0.3
+  ){
+
+    outfit.push(bag);
+    colors.push(bag.color);
+
+  }
+
+
+  const accessory=bestItem("accessory",colors);
+
+  if(
+    accessory &&
+    Math.random()>0.5
+  ){
+
+    outfit.push(accessory);
+
+  }
+
+
+  currentOutfit=outfit;
+
+  showOutfit();
+
+  showMatch(colors);
+
+
+  document.getElementById("againButton")
+    .style.display="block";
+
+
+  document.getElementById("saveButton")
+    .style.display="block";
+
+}
+
+
+/* הצגת האאוטפיט */
+
+function showOutfit(){
+
+  const container=
+    document.getElementById("outfit");
+
+  container.innerHTML="";
+
+
+  if(currentOutfit.length===0){
+
+    container.innerHTML=`
+      <div class="empty">
+        אין מספיק פריטים מתאימים עדיין 🥹
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  currentOutfit.forEach(item=>{
+
+    const div=document.createElement("div");
+
+    div.className="item";
+
+
+    const img=document.createElement("img");
+
+    img.src=item.image;
+
+
+    const badge=document.createElement("div");
+
+    badge.className="badge";
+
+    badge.textContent=colorName(item.color);
+
+
+    div.appendChild(img);
+
+    div.appendChild(badge);
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* התאמת צבעים */
+
+function showMatch(colors){
+
+  if(colors.length<2){
+
+    document.getElementById("match").innerHTML=
+      `<div class="match">
+        ✨ הוסיפי עוד פריטים כדי לבדוק התאמת צבעים
+      </div>`;
+
+    return;
+
+  }
+
+
+  let total=0;
+  let checks=0;
+
+
+  for(let i=0;i<colors.length;i++){
+
+    for(let j=i+1;j<colors.length;j++){
+
+      total+=colorScore(
+        colors[i],
+        colors[j]
+      );
+
+      checks++;
+
+    }
+
+  }
+
+
+  const percentage=Math.min(
+    100,
+    Math.round(
+      total/(checks*10)*100
+    )
+  );
+
+
+  let message;
+
+
+  if(percentage>=85){
+
+    message="💚 התאמת צבעים מושלמת!";
+
+  }else if(percentage>=65){
+
+    message="💛 צבעים שהולכים יפה ביחד!";
+
+  }else{
+
+    message="🎀 שילוב מיוחד — שווה לנסות!";
+
+  }
+
+
+  document.getElementById("match").innerHTML=`
+
+    <div class="match">
+
+      ${message}<br>
+      התאמת צבעים: ${percentage}%
+
+    </div>
+
+  `;
+
+}
+
+
+/* שמירת אאוטפיט */
+
+document.getElementById("saveButton")
+.addEventListener("click",function(){
+
+  if(!currentOutfit.length){
+    return;
+  }
+
+
+  savedOutfits.push(
+    currentOutfit.map(item=>({
+
+      image:item.image,
+      category:item.category,
+      color:item.color
+
+    }))
+  );
+
+
+  localStorage.setItem(
+    "outfitMeSaved",
+    JSON.stringify(savedOutfits)
+  );
+
+
+  renderSaved();
+
+
+  alert("האאוטפיט נשמר! ❤️");
+
+});
+
+
+/* הצגת אאוטפיטים שמורים */
+
+function renderSaved(){
+
+  const container=
+    document.getElementById("savedOutfits");
+
+  container.innerHTML="";
+
+
+  if(savedOutfits.length===0){
+
+    container.innerHTML=`
+      <div class="empty">
+        עדיין לא שמרת אאוטפיטים 💗
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  savedOutfits.forEach((outfit,index)=>{
+
+    const box=document.createElement("div");
+
+    box.className="savedBox";
+
+
+    const grid=document.createElement("div");
+
+    grid.className="outfit";
+
+
+    outfit.forEach(item=>{
+
+      const div=document.createElement("div");
+
+      div.className="item";
+
+
+      const img=document.createElement("img");
+
+      img.src=item.image;
+
+
+      div.appendChild(img);
+
+      grid.appendChild(div);
+
+    });
+
+
+    const deleteButton=
+      document.createElement("button");
+
+    deleteButton.className="main-button";
+
+    deleteButton.textContent="🗑️ מחקי אאוטפיט";
+
+
+    deleteButton.addEventListener(
+      "click",
+      function(){
+
+        savedOutfits.splice(index,1);
+
+        localStorage.setItem(
+          "outfitMeSaved",
+          JSON.stringify(savedOutfits)
+        );
+
+        renderSaved();
+
+      }
+    );
+
+
+    box.appendChild(grid);
+
+    box.appendChild(
+      document.createElement("br")
+    );
+
+    box.appendChild(deleteButton);
+
+    container.appendChild(box);
+
+  });
+
+}
+
+
+/* שמות צבעים */
+
+function colorName(color){
+
+  const names={
+
+    white:"לבן 🤍",
+    black:"שחור 🖤",
+    gray:"אפור 🩶",
+    cream:"שמנת 🤍",
+    pink:"ורוד 🩷",
+    red:"אדום ❤️",
+    orange:"כתום 🧡",
+    yellow:"צהוב 💛",
+    green:"ירוק 💚",
+    lightblue:"תכלת 🩵",
+    blue:"כחול 💙",
+    purple:"סגול 💜",
+    brown:"חום 🤎",
+    denim:"ג'ינס 👖"
+
+  };
+
+
+  return names[color] || "צבע";
+
+}
+
+
+/* הפעלה ראשונית */
+
+loadCloset();
+
+loadSaved();
+
+renderCloset();
+
+renderSaved();
+
+</script>
+
+</body>
+  </html>
